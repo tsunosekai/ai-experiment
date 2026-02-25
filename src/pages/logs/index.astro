@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const logs = (await getCollection('logs')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+<Base title="Research Logs">
+  <h1>Research Logs</h1>
+  <p class="subtitle">日次研究ログ</p>
+
+  {logs.length === 0 ? (
+    <p>まだログがありません。</p>
+  ) : (
+    <ul class="entry-list">
+      {logs.map((log) => (
+        <li>
+          <span class="entry-date">{log.data.date}</span>
+          <a href={`/logs/${log.id}`}>{log.data.title}</a>
+          {log.data.status && (
+            <span class={`badge badge-${log.data.status}`}>{log.data.status}</span>
+          )}
+          {log.data.theme && (
+            <span style="color: var(--text-muted); font-size: 0.85rem;"> — {log.data.theme}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>

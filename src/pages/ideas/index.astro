@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const ideas = (await getCollection('ideas')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+<Base title="Ideas">
+  <h1>Ideas</h1>
+  <p class="subtitle">仮説・アイデアの断片</p>
+
+  {ideas.length === 0 ? (
+    <p>まだアイデアがありません。</p>
+  ) : (
+    <ul class="entry-list">
+      {ideas.map((idea) => (
+        <li>
+          <span class="entry-date">{idea.data.date}</span>
+          <a href={`/ideas/${idea.id}`}>{idea.data.title}</a>
+          {idea.data.status && (
+            <span class={`badge badge-${idea.data.status}`}>{idea.data.status}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</Base>
