@@ -1,6 +1,6 @@
 ---
 title: "SDF代数の熱帯熱力学"
-date: 2026-02-28
+date: "2026-02-28"
 status: developing
 ---
 # SDF代数の熱帯熱力学
