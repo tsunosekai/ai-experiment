@@ -1,66 +1,40 @@
 ---
-title: "SDF代数の熱帯熱力学"
-updated: "2026-02-28"
-tags: ["SDF", "tropical geometry", "Maslov dequantization", "CSG", "Houdini"]
+title: "SDF代数の熱帯熱力学 × 最適輸送"
+updated: "2026-03-01"
+tags: ["SDF", "tropical-algebra", "optimal-transport", "Maslov-dequantization", "eikonal"]
 ---
-# SDF代数の熱帯熱力学 — 蓄積ノート
 
-## 数学的基盤
+## 概要
 
-### 熱帯半環 (R ∪ {∞}, min, +)
-- 加法: a ⊕ b = min(a, b)
-- 乗法: a ⊙ b = a + b
-- 加法単位元: ∞
-- 乗法単位元: 0
+SDFの集合演算を熱帯代数・Maslov脱量子化・最適輸送理論の三つの枠組みで統一的に理解する。
 
-SDFとの対応:
-- Union = 熱帯加法
-- Minkowski和/Offset = 熱帯乗法
-- Intersection = 双対熱帯加法 (max)
+## 主要結果
 
-### Maslov脱量子化
-通常の半環 (R₊, +, ×) から熱帯半環への変形:
-- a ⊕_β b = -β⁻¹ ln(e^{-βa} + e^{-βb}) → min(a,b) as β→∞
-- これがsmooth min
+### エイコナル欠損（2/28）
+- δ_max = sin²(θ/2) はβ非依存
+- 欠損プロファイル: δ(s) = sin²(θ/2)·sech²(βs)
+- 積分欠損: ∫δ ds = 2sin²(θ/2)/β
 
-### エイコナル欠損の導出
+### SDF-OT対応（3/1）
+- smin_β = entropic W₁ Sinkhorn更新（ε=1/β）
+- eikonal欠損 = entropic duality gap
+- n体: δ_max = 1 - 1/n（相互直交）
+- CSG木最適順序 = multi-marginal entropic OT分解
 
-∇smin_β = w_f∇f + w_g∇g, w_f = σ(β(g-f)), w_g = 1-w_f
+## 対応辞書
 
-|∇smin_β|² = 1 - 4w_f·w_g·sin²(θ/2)
-
-f = g のとき w_f = w_g = 1/2:
-δ_max = sin²(θ/2)
-
-これはβに依存しない（幅のみβ⁻¹でスケール）。
-
-### 欠損プロファイル
-s = (f-g)/2 として:
-δ(s) = sin²(θ/2) · sech²(βs)
-
-∫δ ds = 2sin²(θ/2)/β
-
-### 修復の階層
-| Order | 手法 | 零集合 | エイコナル | 滑らかさ |
-|-------|------|--------|-----------|---------|
-| 0 | min | 正確 | 稜線で破綻 | C⁰ |
-| 1 | smin_β | フィレット付 | δ≤sin²(θ/2) | C^∞ |
-| 2 | R∘smin_β | フィレット付 | 正確 | C^∞ |
-| 3 | smin_β+c | フィレット付 | O(β⁻²) | C^∞ |
+| SDF / CSG | Optimal Transport (W₁) | 熱帯代数 |
+|---|---|---|
+| SDF f | 極値Kantorovich potential | — |
+| min(f₁,f₂) | pointwise min | ⊕ |
+| smin_β | entropic dual (ε=1/β) | Maslov deformation |
+| eikonal欠損 | duality gap | 脱量子化誤差 |
+| redistancing | Lipschitz projection | β→∞ |
+| Minkowski sum | infimal convolution | ⊙ |
 
 ## 文献
 
-- de Goes et al. "Blue Noise through Optimal Transport" (2012) — OT×サンプリング（別テーマだが同じ最適輸送の文脈）
-- "Operations on SDF Estimates" (2022) — set-contact smoothnessによるエイコナル違反の定量化
-- "Higher Order Algebraic SDFs" (2023) — 代数的SDF再構成
-- Litvinov "Maslov dequantization, idempotent and tropical mathematics" (2005) — Maslov脱量子化の入門
-
-## 未解決問題
-
-1. Order 3補正の閉形式（基本形状）
-2. 結合律誤差の厳密バウンド
-3. 「SDF空間のアメーバ」の正確な定式化
-4. n体CSG木の最適結合順序のアルゴリズム（NP困難？貪欲法の近似比は？）
-5. 曲面上のSDFへの拡張（測地距離の場合）
-
-## 更新日: 2026-02-28
+- Champion et al. (2008) — Kantorovich potential = SDF
+- Litvinov (2005, 2012) — Maslov脱量子化, HJ方程式
+- Solomon et al. (2015) — Convolutional Wasserstein
+- Serrurier et al. (2021, 2024) — HKR loss, 1-Lipschitz SDF
