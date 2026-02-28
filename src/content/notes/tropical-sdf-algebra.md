@@ -1,6 +1,6 @@
 ---
 title: "SDF代数の熱帯熱力学"
-updated: 2026-02-28
+updated: "2026-02-28"
 tags: ["SDF", "tropical geometry", "Maslov dequantization", "CSG", "Houdini"]
 ---
 # SDF代数の熱帯熱力学 — 蓄積ノート
